@@ -36,6 +36,12 @@ app.get("/name", (req, res) => {
   res.json({ name: `${first} ${last}` });
 });
 
+app.post("/name", (req, res) => {
+  const first = req.body.first;
+  const last  = req.body.last;
+  res.json({ name: `${first} ${last}` });
+});
+
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 
