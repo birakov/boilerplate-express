@@ -49,9 +49,10 @@ app.get('/now',
 // res.json({ name: `${first} ${last}` });
 //});
 
-app.post("/name", function(req, res) {
-  var string = req.body.first + " " + req.body.last;
-  res.json({ name: string });
+app.post("/name", (req, res) => {
+  const first = req.body.first;
+  const last  = req.body.last;
+  res.json({ name: `${first} ${last}` });
 });
 
 module.exports = app;
