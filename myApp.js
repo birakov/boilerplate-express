@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 
 let app = express();
 
+app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use((req, res, next) => {
   const method = req.method;
   const path = req.path;            
@@ -44,10 +46,7 @@ app.post("/name", (req, res) => {
   res.json({ name: `${first} ${last}` });
 });
 
-app.use(bodyParser.urlencoded({ extended: false }));
-
 //console.log("Hello World");
-
 //app.get('/', (req, res) => {
 //  res.send('Hello Express');
 //});
