@@ -1,6 +1,8 @@
 let express = require('express');
 require('dotenv').config();
 
+const bodyParser = require('body-parser');
+
 let app = express();
 
 app.use((req, res, next) => {
@@ -42,7 +44,6 @@ app.post("/name", (req, res) => {
   res.json({ name: `${first} ${last}` });
 });
 
-const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //console.log("Hello World");
