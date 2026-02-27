@@ -5,8 +5,8 @@ let app = express();
 
 app.use((req, res, next) => {
   const method = req.method;
-  const path   = req.path;            
-  const ip     = req.ip;              
+  const path = req.path;            
+  const ip = req.ip;              
 
   console.log(`${method} ${path} - ${ip}`);
 
