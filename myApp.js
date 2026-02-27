@@ -1,22 +1,61 @@
 let express = require('express');
 require('dotenv').config();
 
-const bodyParser = require('body-parser');
-
 let app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
-
 app.use((req, res, next) => {
-  console.log(`${req.method} ${req.path} - ${req.ip}`);
+  const method = req.method;
+  const path = req.path;            
+  const ip = req.ip;              
+
+  console.log(`${method} ${path} - ${ip}`);
+
   next();
 });
 
-app.use("/public", express.static(__dirname + "/public"));
+app.get('/now',
+
+  function(req, res, next) {
+    req.time = new Date().toString();
+    next();
+  },
+
+  function(req, res) {
+    res.json({ time: req.time });
+  }
+);
+
+app.get('/:word/echo', (req, res) => {
+  const word = req.params.word;
+  res.json({ echo: word });
+});
+
+//app.get("/name", (req, res) => {
+//  const first = req.query.first;
+//  const last  = req.query.last;
+//  res.json({ name: `${first} ${last}` });
+//});
+
+app.post("/name", (req, res) => {
+  const first = req.body.first;
+  const last  = req.body.last;
+  res.json({ name: `${first} ${last}` });
+});
+
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+
+//console.log("Hello World");
+
+//app.get('/', (req, res) => {
+//  res.send('Hello Express');
+//});
 
 app.get("/", function(req, res) {
   res.sendFile(__dirname + "/views/index.html");
 });
+
+app.use("/public", express.static(__dirname + "/public"));
 
 app.get("/json", (req, res) => {
   let message = "Hello json";
@@ -26,33 +65,6 @@ app.get("/json", (req, res) => {
   }
 
   res.json({ message: message });
-});
-
-app.get('/:word/echo', (req, res) => {
-  const word = req.params.word;
-  res.json({ echo: word });
-});
-
-app.get('/now',
-  function(req, res, next) {
-    req.time = new Date().toString();
-    next();
-  },
-  function(req, res) {
-    res.json({ time: req.time });
-  }
-);
-
-// app.get("/name", (req, res) => {
-//   const first = req.query.first;
-//   const last  = req.query.last;
-//   res.json({ name: `${first} ${last}` });
-// });
-
-app.post("/name", (req, res) => {
-  const first = req.body.first;
-  const last  = req.body.last;
-  res.json({ name: `${first} ${last}` });
 });
 
 module.exports = app;
