@@ -30,12 +30,6 @@ app.get('/:word/echo', (req, res) => {
   res.json({ echo: word });
 });
 
-app.get("/name", (req, res) => {
-  const first = req.query.first;
-  const last  = req.query.last;
-  res.json({ name: `${first} ${last}` });
-});
-
 app.post("/name", (req, res) => {
   const first = req.body.first;
   const last  = req.body.last;
