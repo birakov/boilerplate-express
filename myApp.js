@@ -36,6 +36,9 @@ app.get("/name", (req, res) => {
   res.json({ name: `${first} ${last}` });
 });
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+
 //console.log("Hello World");
 
 //app.get('/', (req, res) => {
